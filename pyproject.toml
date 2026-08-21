@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spiral-hk"
+version = "0.1.0"
+description = "Spiral-of-silence opinion dynamics: dynamic-weight Hegselmann-Krause (DWHK) models, baselines, and LLM-deliberation sandbox."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Jiawei Ruan" }]
+dependencies = [
+    "numpy>=1.24",
+    "networkx>=3.0",
+    "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

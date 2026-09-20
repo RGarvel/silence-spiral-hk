@@ -58,11 +58,33 @@ follows. See `docs/complexity.md` for details.
 
 - **exp1**: HK on the complete graph recovers the canonical cluster-vs-eps
   phase diagram with consensus threshold eps_c ≈ 0.228.
-- **exp2**: replicates the UV 2022 finding — HK fails to converge when edge
-  weights encode interpersonal influence, IHK slows down on real networks,
-  while DWHK converges to dominant opinions on BA, WS, and ego-Facebook.
+- **exp2**: replicates the UV 2022 finding — DWHK converges to dominant
+  opinions on BA, WS, and ego-Facebook, and converges faster than the
+  frozen-weight variant (`gamma = 0`).  A note on the baseline: `hk_step` is
+  **unweighted**, and on every network we tested the unweighted HK baseline is
+  itself the most oscillation-prone model here (see exp4).  We do not claim
+  that "weighted HK fails while DWHK succeeds"; the causal direction is the
+  other way round.
 - **exp3**: the gamma sweep shows how the climate feedback trades opinion
   diversity for dominance (RQ1 of the PhD agenda).
+- **exp4**: long-horizon convergence audit.  The unweighted HK baseline
+  oscillates with a *pinned* step change — 21/24 and 24/24 configurations on BA
+  and WS (median log-log slope +0.000), and permanently on ego-Facebook, where
+  its per-step change stays pinned at 2.0e-1 for 10 000 steps.  DWHK oscillates
+  1/24 and 0/24 on those networks and converges on ego-Facebook (per-step change
+  7.5e-4 at t=100 → 1.4e-7 at t=10 000).  Convergence is **not** universal,
+  however: on complete bipartite graphs with saturated weights DWHK shows exact
+  period-2 oscillation for 7–17 of 20 random initial conditions, so cycling
+  depends on the initial condition, not on the graph alone.
+  A caution on the metric: judging either by `max(delta)` inside a trailing
+  window or by a strict tolerance misclassifies one regime as the other.  exp4
+  fits the log-log slope of the step-change envelope instead — flat means
+  oscillation, negative means convergence however slow.
+- **exp5**: the spiral of silence with the *expression* channel made explicit
+  (`sos_step`: private opinion `O_i` plus willingness to speak out `s_i`).
+  What is said out loud converges faster than what people privately think —
+  the signature the original DWHK cannot represent, and the one the
+  willingness-to-speak-out literature actually measures.
 
 ## Structural facts (see docs/theory_notes.md)
 
